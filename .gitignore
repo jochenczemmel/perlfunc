@@ -1,0 +1,7 @@
+
+# vim swap files
+*.swp
+
+# test coverage data
+coverage.txt
+
