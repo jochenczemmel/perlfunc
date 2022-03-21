@@ -1,4 +1,4 @@
-package perlfunc_test
+package assert
 
 import "testing"
 
