@@ -1,50 +1,63 @@
 package lists
 
-func Push[T any](list *[]T, value ...T) {
-	*list = append(*list, value...)
+type List[T any] struct {
+	Values []T
 }
 
-func Pop[T any](list *[]T) T {
-	var zero T
-	if len(*list) == 0 {
-		return zero
+func New[T any](values ...T) *List[T] {
+	return &List[T]{
+		Values: values,
 	}
-	last := len(*list) - 1
-	defer func() {
-		*list = (*list)[:last]
-	}()
-	return (*list)[last]
 }
 
-func Unshift[T any](list *[]T, value ...T) {
-	*list = append(value, *list...)
+func (l *List[T]) Len() int {
+	return len(l.Values)
 }
 
-func Shift[T any](list *[]T) T {
-	var zero T
-	if len(*list) < 1 {
-		return zero
+func (l *List[T]) Push(value ...T) {
+	Push(&l.Values, value...)
+}
+
+func (l *List[T]) Pop() T {
+	return Pop(&l.Values)
+}
+
+func (l *List[T]) Unshift(value ...T) {
+	Unshift(&l.Values, value...)
+}
+
+func (l *List[T]) Shift() T {
+	return Shift(&l.Values)
+}
+
+func (l List[T]) Grep(f func(T) bool) *List[T] {
+	return &List[T]{
+		Values: Grep(l.Values, f),
 	}
-	defer func() {
-		*list = (*list)[1:]
-	}()
-	return (*list)[0]
 }
 
-func Grep[T any](list []T, f func(T) bool) []T {
-	result := []T{}
-	for _, value := range list {
-		if f(value) {
-			result = append(result, value)
-		}
+func (l List[T]) Map(f func(T) T) *List[T] {
+	return &List[T]{
+		Values: Map(l.Values, f),
 	}
-	return result
 }
 
-func Map[T any](list []T, f func(T) T) []T {
-	result := []T{}
-	for _, value := range list {
-		result = append(result, f(value))
-	}
-	return result
+func (l List[T]) All(f func(T) bool) bool {
+	return All(l.Values, f)
+}
+
+func (l List[T]) Any(f func(T) bool) bool {
+	return Any(l.Values, f)
+}
+
+func (l List[T]) NotAll(f func(T) bool) bool {
+	return NotAll(l.Values, f)
+}
+
+func (l List[T]) None(f func(T) bool) bool {
+	return None(l.Values, f)
+}
+
+func (l List[T]) Reduce(f func(a, b T) T) T {
+	return Reduce(l.Values, f)
 }
