@@ -35,6 +35,22 @@ func TestPerlfunc(t *testing.T) {
 		assert.EqualsList(t, got, want)
 	})
 
+	t.Run("mapsortkeys", func(t *testing.T) {
+
+		got := lists.Head(lists.Sort(hashes.Keys(
+			hashes.Map(daten, func(k string, v int) (string, int) {
+				return strings.ToUpper(k), v
+			}))), 3)
+		t.Logf("DEBUG: %v", got)
+
+		want := []string{
+			"FUKUOKA",
+			"KAGOSHIMA",
+			"KANAZAWA",
+		}
+		assert.EqualsList(t, got, want)
+	})
+
 	t.Run("uniqvalues", func(t *testing.T) {
 		got := lists.Uniq(lists.Sort(hashes.Values(daten)))
 		t.Logf("DEBUG: %v", got)
