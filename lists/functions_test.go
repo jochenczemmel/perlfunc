@@ -100,6 +100,7 @@ func TestMap(t *testing.T) {
 func TestAnyAll(t *testing.T) {
 
 	list := []int{1, 2, 3, 4, 5, 6, 7}
+	listObject := lists.New(1, 2, 3, 4, 5, 6, 7)
 
 	candidates := []struct {
 		name             string
@@ -134,15 +135,46 @@ func TestAnyAll(t *testing.T) {
 			assert.Equals(t, lists.NotAll(list, c.fn), !c.wantAll)
 			assert.Equals(t, lists.Any(list, c.fn), c.wantAny)
 			assert.Equals(t, lists.None(list, c.fn), !c.wantAny)
+			// OOP: list.go
+			assert.Equals(t, listObject.All(c.fn), c.wantAll)
+			assert.Equals(t, listObject.NotAll(c.fn), !c.wantAll)
+			assert.Equals(t, listObject.Any(c.fn), c.wantAny)
+			assert.Equals(t, listObject.None(c.fn), !c.wantAny)
 		})
 	}
 }
 
 func TestReduce(t *testing.T) {
 
-	liste := []int{1, 2, 3, 4, 5, 6, 7}
+	var liste []int
 
 	summe := lists.Reduce(liste, func(a, b int) int {
+		return a + b
+	})
+	assert.Equals(t, summe, 0)
+
+	liste = []int{}
+	summe = lists.Reduce(liste, func(a, b int) int {
+		return a + b
+	})
+	assert.Equals(t, summe, 0)
+
+	liste = []int{3}
+	summe = lists.Reduce(liste, func(a, b int) int {
+		return a + b
+	})
+	assert.Equals(t, summe, 3)
+
+	liste = []int{1, 2, 3, 4, 5, 6, 7}
+
+	summe = lists.Reduce(liste, func(a, b int) int {
+		return a + b
+	})
+	assert.Equals(t, summe, 28)
+
+	// OOP: list.go
+	listObject := lists.New(1, 2, 3, 4, 5, 6, 7)
+	summe = listObject.Reduce(func(a, b int) int {
 		return a + b
 	})
 	assert.Equals(t, summe, 28)
@@ -150,9 +182,16 @@ func TestReduce(t *testing.T) {
 
 func TestFirst(t *testing.T) {
 
-	liste := []int{1, 3, 5, 6, 7, 8}
-
+	var liste []int
 	got, ok := lists.First(liste, func(value int) bool {
+		return value%2 == 0
+	})
+	assert.Equals(t, got, 0)
+	assert.Equals(t, ok, false)
+
+	liste = []int{1, 3, 5, 6, 7, 8}
+
+	got, ok = lists.First(liste, func(value int) bool {
 		return value%2 == 0
 	})
 	assert.Equals(t, got, 6)
@@ -163,24 +202,6 @@ func TestFirst(t *testing.T) {
 	})
 	assert.Equals(t, got, 0)
 	assert.Equals(t, ok, false)
-}
-
-func TestMax(t *testing.T) {
-
-	assert.Equals(t, lists.Max([]int{}), 0)
-	assert.Equals(t, lists.Max([]int{0, 0, 0}), 0)
-	assert.Equals(t, lists.Max([]int{2, 2, 2}), 2)
-	assert.Equals(t, lists.Max([]int{3, 2, 9, 5, 6}), 9)
-}
-
-func TestMin(t *testing.T) {
-
-	assert.Equals(t, lists.Min([]int{}), 0)
-	assert.Equals(t, lists.Min([]int{2}), 2)
-	assert.Equals(t, lists.Min([]int{2, 3}), 2)
-	assert.Equals(t, lists.Min([]int{3, 2}), 2)
-	assert.Equals(t, lists.Min([]int{2, 3, 1}), 1)
-	assert.Equals(t, lists.Min([]int{3, 2, 9, 5, 6}), 2)
 }
 
 func TestHead(t *testing.T) {

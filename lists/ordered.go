@@ -5,9 +5,15 @@ import (
 	"golang.org/x/exp/slices"
 )
 
+// Max returns the highest value in the list.
+// If the list is empty, the zero value is returned.
 func Max[T constraints.Ordered](list []T) T {
 	var result T
-	for _, value := range list {
+	if len(list) == 0 {
+		return result
+	}
+	result = list[0]
+	for _, value := range list[1:] {
 		if value > result {
 			result = value
 		}
@@ -15,6 +21,8 @@ func Max[T constraints.Ordered](list []T) T {
 	return result
 }
 
+// Min returns the lowest value in the list.
+// If the list is empty, the zero value is returned.
 func Min[T constraints.Ordered](list []T) T {
 	var result T
 	if len(list) == 0 {
@@ -29,7 +37,12 @@ func Min[T constraints.Ordered](list []T) T {
 	return result
 }
 
-func Sort[T constraints.Ordered](list []T) []T {
-	slices.Sort(list)
-	return list
+// Sort returns the given list in sorted order.
+// It returns a copy of the list and leaves the original
+// list unchanged.
+func Sort[L ~[]T, T constraints.Ordered](list L) L {
+	result := make(L, len(list))
+	copy(result, list)
+	slices.Sort(result)
+	return result
 }

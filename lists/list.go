@@ -1,9 +1,12 @@
 package lists
 
+// List can be used for performing list functions in place
+// like perl @list variables.
 type List[T any] struct {
 	Values []T
 }
 
+// New returns a new List object filled with the given slice values.
 func New[T any](values ...T) *List[T] {
 	return &List[T]{
 		Values: values,

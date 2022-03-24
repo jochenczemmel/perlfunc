@@ -9,6 +9,8 @@ import (
 	"github.com/jochenczemmel/perlfunc/lists"
 )
 
+// some tests for list.go also in function_test.go
+
 func TestListInit(t *testing.T) {
 
 	got := lists.New[int]()

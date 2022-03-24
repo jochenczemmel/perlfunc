@@ -2,6 +2,7 @@ package assert
 
 import "testing"
 
+// Equals checks if two values are equal.
 func Equals[C comparable](t *testing.T, got, want C) {
 	t.Helper()
 	if got != want {
@@ -9,6 +10,7 @@ func Equals[C comparable](t *testing.T, got, want C) {
 	}
 }
 
+// NotEquals checks if two values are not equal.
 func NotEquals[C comparable](t *testing.T, got, want C) {
 	t.Helper()
 	if got == want {
@@ -16,6 +18,8 @@ func NotEquals[C comparable](t *testing.T, got, want C) {
 	}
 }
 
+// EqualsList checks if two lists are equal.
+// If the lenght is different, the elements are not compared.
 func EqualsList[L ~[]C, C comparable](t *testing.T, got, want L) {
 	t.Helper()
 	if len(got) != len(want) {
@@ -28,6 +32,8 @@ func EqualsList[L ~[]C, C comparable](t *testing.T, got, want L) {
 	}
 }
 
+// EqualsMap checks if two maps are equal.
+// If the lenght is different, the elements are not compared.
 func EqualsMap[M ~map[K]V, K, V comparable](t *testing.T,
 	got, want M) {
 

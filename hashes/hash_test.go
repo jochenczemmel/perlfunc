@@ -7,7 +7,6 @@ import (
 
 	"github.com/jochenczemmel/perlfunc/assert"
 	"github.com/jochenczemmel/perlfunc/hashes"
-	"golang.org/x/exp/slices"
 )
 
 var m1 = map[int]int{1: 2, 2: 4, 4: 8, 8: 16}
@@ -74,27 +73,27 @@ func TestKeys(t *testing.T) {
 
 	got1 := hashes.Keys(m1)
 	sort.Ints(got1)
-	if !slices.Equal(got1, want) {
-		t.Errorf("Keys(%v) = %v, want %v", m1, got1, want)
-	}
+	assert.EqualsList(t, got1, want)
 
 	got2 := hashes.Keys(m2)
 	sort.Ints(got2)
-	if !slices.Equal(got2, want) {
-		t.Errorf("Keys(%v) = %v, want %v", m2, got2, want)
-	}
+	assert.EqualsList(t, got2, want)
 }
 
 func TestSortKeys(t *testing.T) {
 	want := []int{1, 2, 4, 8}
 
 	got1 := hashes.SortKeys(m1)
-	if !slices.Equal(got1, want) {
-		t.Errorf("Keys(%v) = %v, want %v", m1, got1, want)
-	}
+	assert.EqualsList(t, got1, want)
 
 	got2 := hashes.SortKeys(m2)
-	if !slices.Equal(got2, want) {
-		t.Errorf("Keys(%v) = %v, want %v", m2, got2, want)
-	}
+	assert.EqualsList(t, got2, want)
+}
+
+func TestValues(t *testing.T) {
+	want := []string{"acht", "eins", "vier", "zwei"}
+
+	got := hashes.Values(m2)
+	sort.Strings(got)
+	assert.EqualsList(t, got, want)
 }

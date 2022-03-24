@@ -1,14 +1,14 @@
 
 test:
-	go test
+	go test ./...
 
 testv:
-	go test -v
+	go test -v ./...
 
 COVERFILE="coverage.txt"
 
 cover:
-	go test -cover -coverprofile $(COVERFILE)
+	go test -cover -coverprofile $(COVERFILE) ./...
 	go tool cover -html=$(COVERFILE)
 
 
