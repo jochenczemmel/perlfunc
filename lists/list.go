@@ -13,6 +13,10 @@ func New[T any](values ...T) *List[T] {
 	}
 }
 
+func (l *List[T]) Empty() bool {
+	return len(l.Values) == 0
+}
+
 func (l *List[T]) Len() int {
 	return len(l.Values)
 }
