@@ -47,6 +47,20 @@ func Grep[L ~[]T, T any](list L, f func(T) bool) L {
 	return result
 }
 
+// Find returns a the first element that return true for f and true.
+// If no element was found, it returns the zero value and false.
+// f gets only the list values, not the indexes.
+// func Find[T any](list []T, f func(T) bool) (T, bool) {
+func Find[L ~[]T, T any](list L, f func(T) bool) (T, bool) {
+	var zero T
+	for _, value := range list {
+		if f(value) {
+			return value, true
+		}
+	}
+	return zero, false
+}
+
 // Map returns the list where the values are modified by f.
 // f gets only the list values, not the indexes.
 func Map[L ~[]T, T any](list L, f func(T) T) L {

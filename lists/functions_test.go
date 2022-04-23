@@ -64,6 +64,35 @@ func TestShift(t *testing.T) {
 	}
 }
 
+func TestFind(t *testing.T) {
+
+	type MyString []string
+	list := MyString{"eins", "zwei", "drei", "vier", "fünf"}
+	// list := []string{"eins", "zwei", "drei", "vier", "fünf"}
+
+	candidates := []struct {
+		search    string
+		want      string
+		wantMatch bool
+	}{
+		{"ei", "eins", true},
+		{"dr", "drei", true},
+		{"X", "", false},
+	}
+
+	for _, c := range candidates {
+
+		t.Run(c.search, func(t *testing.T) {
+			got, gotMatch := lists.Find(list, func(value string) bool {
+				return strings.Contains(value, c.search)
+			})
+			assert.Equals(t, got, c.want)
+			assert.Equals(t, gotMatch, c.wantMatch)
+		})
+	}
+
+}
+
 func TestGrep(t *testing.T) {
 
 	list := []string{"eins", "zwei", "drei", "vier", "fünf"}
