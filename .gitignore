@@ -5,3 +5,6 @@
 # test coverage data
 coverage.txt
 
+# go workspace definition
+go.work
+

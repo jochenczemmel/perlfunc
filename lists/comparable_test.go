@@ -3,7 +3,7 @@ package lists_test
 import (
 	"testing"
 
-	"github.com/jochenczemmel/perlfunc/assert"
+	"github.com/jochenczemmel/assert/assert"
 	"github.com/jochenczemmel/perlfunc/lists"
 )
 
@@ -27,5 +27,5 @@ func TestHashesUniq(t *testing.T) {
 		"Kyoto",
 		"Osaka",
 	}
-	assert.EqualsList(t, got, want)
+	assert.EqualList(t, got, want)
 }

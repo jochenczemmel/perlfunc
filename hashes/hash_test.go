@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jochenczemmel/perlfunc/assert"
+	"github.com/jochenczemmel/assert/assert"
 	"github.com/jochenczemmel/perlfunc/hashes"
 )
 
@@ -27,7 +27,7 @@ func TestMap(t *testing.T) {
 	got := hashes.Map(m2, func(key int, value string) (int, string) {
 		return key, strings.ToUpper(value)
 	})
-	assert.EqualsMap(t, got, want)
+	assert.EqualMap(t, got, want)
 
 	want = map[int]string{
 		10: "eins",
@@ -38,7 +38,7 @@ func TestMap(t *testing.T) {
 	got = hashes.Map(m2, func(key int, value string) (int, string) {
 		return key * 10, value
 	})
-	assert.EqualsMap(t, got, want)
+	assert.EqualMap(t, got, want)
 
 }
 
@@ -51,12 +51,12 @@ func TestGrep(t *testing.T) {
 	got := hashes.Grep(m2, func(_ int, value string) bool {
 		return strings.Contains(value, "i")
 	})
-	assert.EqualsMap(t, got, want)
+	assert.EqualMap(t, got, want)
 
 	got = hashes.Grep(m2, func(_ int, value string) bool {
 		return strings.Contains(value, "X")
 	})
-	assert.EqualsMap(t, got, map[int]string{})
+	assert.EqualMap(t, got, map[int]string{})
 
 	want = map[int]string{
 		4: "vier",
@@ -65,7 +65,7 @@ func TestGrep(t *testing.T) {
 	got = hashes.Grep(m2, func(key int, _ string) bool {
 		return key > 2
 	})
-	assert.EqualsMap(t, got, want)
+	assert.EqualMap(t, got, want)
 }
 
 func TestKeys(t *testing.T) {
@@ -73,21 +73,21 @@ func TestKeys(t *testing.T) {
 
 	got1 := hashes.Keys(m1)
 	sort.Ints(got1)
-	assert.EqualsList(t, got1, want)
+	assert.EqualList(t, got1, want)
 
 	got2 := hashes.Keys(m2)
 	sort.Ints(got2)
-	assert.EqualsList(t, got2, want)
+	assert.EqualList(t, got2, want)
 }
 
 func TestSortKeys(t *testing.T) {
 	want := []int{1, 2, 4, 8}
 
 	got1 := hashes.SortKeys(m1)
-	assert.EqualsList(t, got1, want)
+	assert.EqualList(t, got1, want)
 
 	got2 := hashes.SortKeys(m2)
-	assert.EqualsList(t, got2, want)
+	assert.EqualList(t, got2, want)
 }
 
 func TestValues(t *testing.T) {
@@ -95,5 +95,5 @@ func TestValues(t *testing.T) {
 
 	got := hashes.Values(m2)
 	sort.Strings(got)
-	assert.EqualsList(t, got, want)
+	assert.EqualList(t, got, want)
 }

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jochenczemmel/perlfunc/assert"
+	"github.com/jochenczemmel/assert/assert"
 	"github.com/jochenczemmel/perlfunc/lists"
 )
 
@@ -14,11 +14,11 @@ func TestPush(t *testing.T) {
 	list := []int{}
 	lists.Push(&list, 1, 2, 3)
 	wantLen := 3
-	assert.Equals(t, len(list), wantLen)
+	assert.Equal(t, len(list), wantLen)
 
 	lists.Push(&list, 4)
 	wantLen = 4
-	assert.Equals(t, len(list), wantLen)
+	assert.Equal(t, len(list), wantLen)
 }
 
 func TestPop(t *testing.T) {
@@ -28,7 +28,7 @@ func TestPop(t *testing.T) {
 	for i, want := range []int{3, 2, 1, 0, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := lists.Pop(&list)
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -38,16 +38,16 @@ func TestUnshift(t *testing.T) {
 	list := []int{}
 	lists.Unshift(&list, 1, 2, 3)
 	wantLen := 3
-	assert.Equals(t, len(list), wantLen)
+	assert.Equal(t, len(list), wantLen)
 
 	lists.Unshift(&list, 4, 5)
 	wantLen = 5
-	assert.Equals(t, len(list), wantLen)
+	assert.Equal(t, len(list), wantLen)
 
 	for i, want := range []int{3, 2, 1, 5, 4, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := lists.Pop(&list)
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -59,7 +59,7 @@ func TestShift(t *testing.T) {
 	for i, want := range []int{1, 2, 3, 0, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := lists.Shift(&list)
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -86,8 +86,8 @@ func TestFind(t *testing.T) {
 			got, gotMatch := lists.Find(list, func(value string) bool {
 				return strings.Contains(value, c.search)
 			})
-			assert.Equals(t, got, c.want)
-			assert.Equals(t, gotMatch, c.wantMatch)
+			assert.Equal(t, got, c.want)
+			assert.Equal(t, gotMatch, c.wantMatch)
 		})
 	}
 
@@ -104,7 +104,7 @@ func TestGrep(t *testing.T) {
 	for i, want := range []string{"eins", "zwei", "drei", ""} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := lists.Shift(&filtered)
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -121,7 +121,7 @@ func TestMap(t *testing.T) {
 
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := lists.Shift(&mapped)
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -160,15 +160,15 @@ func TestAnyAll(t *testing.T) {
 
 	for _, c := range candidates {
 		t.Run(c.name, func(t *testing.T) {
-			assert.Equals(t, lists.All(list, c.fn), c.wantAll)
-			assert.Equals(t, lists.NotAll(list, c.fn), !c.wantAll)
-			assert.Equals(t, lists.Any(list, c.fn), c.wantAny)
-			assert.Equals(t, lists.None(list, c.fn), !c.wantAny)
+			assert.Equal(t, lists.All(list, c.fn), c.wantAll)
+			assert.Equal(t, lists.NotAll(list, c.fn), !c.wantAll)
+			assert.Equal(t, lists.Any(list, c.fn), c.wantAny)
+			assert.Equal(t, lists.None(list, c.fn), !c.wantAny)
 			// OOP: list.go
-			assert.Equals(t, listObject.All(c.fn), c.wantAll)
-			assert.Equals(t, listObject.NotAll(c.fn), !c.wantAll)
-			assert.Equals(t, listObject.Any(c.fn), c.wantAny)
-			assert.Equals(t, listObject.None(c.fn), !c.wantAny)
+			assert.Equal(t, listObject.All(c.fn), c.wantAll)
+			assert.Equal(t, listObject.NotAll(c.fn), !c.wantAll)
+			assert.Equal(t, listObject.Any(c.fn), c.wantAny)
+			assert.Equal(t, listObject.None(c.fn), !c.wantAny)
 		})
 	}
 }
@@ -180,33 +180,33 @@ func TestReduce(t *testing.T) {
 	summe := lists.Reduce(liste, func(a, b int) int {
 		return a + b
 	})
-	assert.Equals(t, summe, 0)
+	assert.Equal(t, summe, 0)
 
 	liste = []int{}
 	summe = lists.Reduce(liste, func(a, b int) int {
 		return a + b
 	})
-	assert.Equals(t, summe, 0)
+	assert.Equal(t, summe, 0)
 
 	liste = []int{3}
 	summe = lists.Reduce(liste, func(a, b int) int {
 		return a + b
 	})
-	assert.Equals(t, summe, 3)
+	assert.Equal(t, summe, 3)
 
 	liste = []int{1, 2, 3, 4, 5, 6, 7}
 
 	summe = lists.Reduce(liste, func(a, b int) int {
 		return a + b
 	})
-	assert.Equals(t, summe, 28)
+	assert.Equal(t, summe, 28)
 
 	// OOP: list.go
 	listObject := lists.New(1, 2, 3, 4, 5, 6, 7)
 	summe = listObject.Reduce(func(a, b int) int {
 		return a + b
 	})
-	assert.Equals(t, summe, 28)
+	assert.Equal(t, summe, 28)
 }
 
 func TestFirst(t *testing.T) {
@@ -215,46 +215,46 @@ func TestFirst(t *testing.T) {
 	got, ok := lists.First(liste, func(value int) bool {
 		return value%2 == 0
 	})
-	assert.Equals(t, got, 0)
-	assert.Equals(t, ok, false)
+	assert.Equal(t, got, 0)
+	assert.Equal(t, ok, false)
 
 	liste = []int{1, 3, 5, 6, 7, 8}
 
 	got, ok = lists.First(liste, func(value int) bool {
 		return value%2 == 0
 	})
-	assert.Equals(t, got, 6)
-	assert.Equals(t, ok, true)
+	assert.Equal(t, got, 6)
+	assert.Equal(t, ok, true)
 
 	got, ok = lists.First(liste, func(value int) bool {
 		return value > 10
 	})
-	assert.Equals(t, got, 0)
-	assert.Equals(t, ok, false)
+	assert.Equal(t, got, 0)
+	assert.Equal(t, ok, false)
 }
 
 func TestHead(t *testing.T) {
 
 	liste := []int{1, 2, 3, 4, 5}
-	assert.EqualsList(t, lists.Head(liste, 3), []int{1, 2, 3})
-	assert.EqualsList(t, lists.Head(liste, 2), []int{1, 2})
-	assert.EqualsList(t, lists.Head(liste, 1), []int{1})
-	assert.EqualsList(t, lists.Head(liste, 0), []int{})
-	assert.EqualsList(t, lists.Head(liste, -1), []int{})
-	assert.EqualsList(t, lists.Head(liste, 5), []int{1, 2, 3, 4, 5})
-	assert.EqualsList(t, lists.Head(liste, 6), []int{1, 2, 3, 4, 5})
-	assert.EqualsList(t, lists.Head(liste, 9), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Head(liste, 3), []int{1, 2, 3})
+	assert.EqualList(t, lists.Head(liste, 2), []int{1, 2})
+	assert.EqualList(t, lists.Head(liste, 1), []int{1})
+	assert.EqualList(t, lists.Head(liste, 0), []int{})
+	assert.EqualList(t, lists.Head(liste, -1), []int{})
+	assert.EqualList(t, lists.Head(liste, 5), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Head(liste, 6), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Head(liste, 9), []int{1, 2, 3, 4, 5})
 }
 
 func TestTail(t *testing.T) {
 
 	liste := []int{1, 2, 3, 4, 5}
-	assert.EqualsList(t, lists.Tail(liste, 3), []int{3, 4, 5})
-	assert.EqualsList(t, lists.Tail(liste, 2), []int{4, 5})
-	assert.EqualsList(t, lists.Tail(liste, 1), []int{5})
-	assert.EqualsList(t, lists.Tail(liste, 0), []int{})
-	assert.EqualsList(t, lists.Tail(liste, -1), []int{})
-	assert.EqualsList(t, lists.Tail(liste, 5), []int{1, 2, 3, 4, 5})
-	assert.EqualsList(t, lists.Tail(liste, 6), []int{1, 2, 3, 4, 5})
-	assert.EqualsList(t, lists.Tail(liste, 9), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Tail(liste, 3), []int{3, 4, 5})
+	assert.EqualList(t, lists.Tail(liste, 2), []int{4, 5})
+	assert.EqualList(t, lists.Tail(liste, 1), []int{5})
+	assert.EqualList(t, lists.Tail(liste, 0), []int{})
+	assert.EqualList(t, lists.Tail(liste, -1), []int{})
+	assert.EqualList(t, lists.Tail(liste, 5), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Tail(liste, 6), []int{1, 2, 3, 4, 5})
+	assert.EqualList(t, lists.Tail(liste, 9), []int{1, 2, 3, 4, 5})
 }

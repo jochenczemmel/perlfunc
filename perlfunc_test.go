@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jochenczemmel/perlfunc/assert"
+	"github.com/jochenczemmel/assert/assert"
 	"github.com/jochenczemmel/perlfunc/hashes"
 	"github.com/jochenczemmel/perlfunc/lists"
 )
@@ -32,7 +32,7 @@ func TestPerlfunc(t *testing.T) {
 			"Kagoshima",
 			"Kanazawa",
 		}
-		assert.EqualsList(t, got, want)
+		assert.EqualList(t, got, want)
 	})
 
 	t.Run("mapsortkeys", func(t *testing.T) {
@@ -48,14 +48,14 @@ func TestPerlfunc(t *testing.T) {
 			"KAGOSHIMA",
 			"KANAZAWA",
 		}
-		assert.EqualsList(t, got, want)
+		assert.EqualList(t, got, want)
 	})
 
 	t.Run("uniqvalues", func(t *testing.T) {
 		got := lists.Uniq(lists.Sort(hashes.Values(daten)))
 		t.Logf("DEBUG: %v", got)
 		want := []int{1, 2, 3}
-		assert.EqualsList(t, got, want)
+		assert.EqualList(t, got, want)
 	})
 }
 
@@ -80,7 +80,7 @@ func TestListDataType(t *testing.T) {
 	t.Run("uniq", func(t *testing.T) {
 		got := lists.Uniq(p).String()
 		want := "[1 2 -1]"
-		assert.Equals(t, got, want)
+		assert.Equal(t, got, want)
 	})
 
 	t.Run("grep", func(t *testing.T) {
@@ -88,19 +88,19 @@ func TestListDataType(t *testing.T) {
 			return a%2 == 0
 		}).String()
 		want := "[2 2]"
-		assert.Equals(t, got, want)
+		assert.Equal(t, got, want)
 	})
 
 	t.Run("head", func(t *testing.T) {
 		got := lists.Head(p, 2).String()
 		want := "[1 2]"
-		assert.Equals(t, got, want)
+		assert.Equal(t, got, want)
 	})
 
 	t.Run("sort", func(t *testing.T) {
 		got := lists.Sort(p).String()
 		want := "[-1 1 2 2]"
-		assert.Equals(t, got, want)
+		assert.Equal(t, got, want)
 	})
 }
 
@@ -138,7 +138,7 @@ func TestMapDataType(t *testing.T) {
 			2: "zwei",
 			4: "vier",
 		}
-		assert.EqualsMap(t, got, want)
+		assert.EqualMap(t, got, want)
 		// compiler checks method
 		t.Logf("DEBUG: String: %s ", got.String())
 	})
@@ -153,14 +153,14 @@ func TestMapDataType(t *testing.T) {
 			4: "VIER",
 			8: "ACHT",
 		}
-		assert.EqualsMap(t, got, want)
+		assert.EqualMap(t, got, want)
 		t.Logf("DEBUG: String: %s ", got.String())
 	})
 
 	t.Run("sortkeys", func(t *testing.T) {
 		got := hashes.SortKeys(p)
 		want := []int{1, 2, 4, 8}
-		assert.EqualsList(t, got, want)
+		assert.EqualList(t, got, want)
 	})
 
 	t.Run("values", func(t *testing.T) {
@@ -171,6 +171,6 @@ func TestMapDataType(t *testing.T) {
 			"vier",
 			"zwei",
 		}
-		assert.EqualsList(t, got, want)
+		assert.EqualList(t, got, want)
 	})
 }

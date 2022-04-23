@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jochenczemmel/perlfunc/assert"
+	"github.com/jochenczemmel/assert/assert"
 	"github.com/jochenczemmel/perlfunc/lists"
 )
 
@@ -15,11 +15,11 @@ func TestListInit(t *testing.T) {
 
 	got := lists.New[int]()
 	wantLen := 0
-	assert.Equals(t, got.Len(), wantLen)
+	assert.Equal(t, got.Len(), wantLen)
 
 	got = lists.New(1, 2, 3)
 	wantLen = 3
-	assert.Equals(t, got.Len(), wantLen)
+	assert.Equal(t, got.Len(), wantLen)
 }
 
 func TestListPush(t *testing.T) {
@@ -27,11 +27,11 @@ func TestListPush(t *testing.T) {
 	list := lists.New[int]()
 	list.Push(1, 2, 3)
 	wantLen := 3
-	assert.Equals(t, list.Len(), wantLen)
+	assert.Equal(t, list.Len(), wantLen)
 
 	list.Push(4)
 	wantLen = 4
-	assert.Equals(t, list.Len(), wantLen)
+	assert.Equal(t, list.Len(), wantLen)
 }
 
 func TestListUnshift(t *testing.T) {
@@ -39,16 +39,16 @@ func TestListUnshift(t *testing.T) {
 	list := lists.New[int]()
 	list.Unshift(1, 2, 3)
 	wantLen := 3
-	assert.Equals(t, list.Len(), wantLen)
+	assert.Equal(t, list.Len(), wantLen)
 
 	list.Unshift(4, 5)
 	wantLen = 5
-	assert.Equals(t, list.Len(), wantLen)
+	assert.Equal(t, list.Len(), wantLen)
 
 	for i, want := range []int{3, 2, 1, 5, 4, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := list.Pop()
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -60,7 +60,7 @@ func TestListPop(t *testing.T) {
 	for i, want := range []int{3, 2, 1, 0, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := list.Pop()
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -72,7 +72,7 @@ func TestListShift(t *testing.T) {
 	for i, want := range []int{1, 2, 3, 0, 0} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := list.Shift()
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -87,7 +87,7 @@ func TestListGrep(t *testing.T) {
 	for i, want := range []string{"eins", "zwei", "drei", ""} {
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := filtered.Shift()
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
@@ -104,7 +104,7 @@ func TestListMap(t *testing.T) {
 
 		t.Run(fmt.Sprintf("Test %d", i+1), func(t *testing.T) {
 			got := mapped.Shift()
-			assert.Equals(t, got, want)
+			assert.Equal(t, got, want)
 		})
 	}
 }
