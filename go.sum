@@ -1,4 +1,4 @@
-github.com/jochenczemmel/assert v0.0.1 h1:45ftz0E2zfWKF6hyMi6SH4zFFvmiFgsUiuYWnBs0gjo=
-github.com/jochenczemmel/assert v0.0.1/go.mod h1:1xxHsqp+TJ/6AldemSEOb5zKbbXbl83G7dzwekcgGTk=
+github.com/jochenczemmel/assert v0.0.2 h1:5HS2c9z71xKe7V/xcEOfA8tr+QLXmENP4PjZKoxaBFs=
+github.com/jochenczemmel/assert v0.0.2/go.mod h1:1xxHsqp+TJ/6AldemSEOb5zKbbXbl83G7dzwekcgGTk=
 golang.org/x/exp v0.0.0-20220321173239-a90fa8a75705 h1:ba9YlqfDGTTQ5aZ2fwOoQ1hf32QySyQkR6ODGDzHlnE=
 golang.org/x/exp v0.0.0-20220321173239-a90fa8a75705/go.mod h1:lgLbSvA5ygNOMpwM/9anMpWVlVJ7Z+cHWq/eFuinpGE=
